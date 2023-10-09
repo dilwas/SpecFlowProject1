@@ -13,11 +13,15 @@ namespace SpecFlowProject1.StepDefinitions
         HomePage homePageObj = new HomePage();
         TMPage tmPageObj = new TMPage();
 
+        [BeforeScenario]
+        public void SetupDriver()
+        {   
+            //Open chrome browser
+            driver = new ChromeDriver();
+        }
         [Given(@"user logs into TurnUp Portal")]
         public void GivenUserLogsIntoTurnUpPortal()
         {
-            //Open chrome browser
-            driver = new ChromeDriver();
             //Loginpage page object initialization and definition
             loginPageObj.LoginActions(driver);
 
@@ -73,6 +77,14 @@ namespace SpecFlowProject1.StepDefinitions
         public void ThenTheTimeAndMaterialRecordShouldDeleteFromTurnupPortal()
         {
             tmPageObj.AsserteDeleteTmRecord(driver);
+        }
+
+        [AfterScenario]
+        public void closeDriver()
+        {
+            //Close chrome driver
+            driver.Quit();
+
         }
 
     }
